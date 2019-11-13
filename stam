@@ -1,0 +1,14 @@
+/*void deleteEnding(*//*char str[]*//*)
+{
+    char *ending;
+    ending = strchr(bestStudent,'\r');
+    if(ending)
+    {
+        ending[0] = 0;
+    }
+    ending = strchr(bestStudent,'\n');
+    if (ending)
+    {
+        ending[0] = 0;
+    }
+}*/

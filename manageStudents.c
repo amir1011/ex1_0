@@ -1,18 +1,22 @@
+/**
+ * @file manageStudents.c
+ * @author amir1011 332494103
+ * @date 13/11/19
+ */
+
 // ------------------------------ includes ------------------------------//
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
-//#include <stdbool.h>
-//#include <jmorecfg.h>
 // ---------------------------------------------------------------------//
 
 // -------------------------- const definitions -------------------------//
-#define EXIT 'q'
 #define BEST "best"
 #define MERGE "merge"
 #define QUICK "quick"
 #define NUM_OF_ARGUMENT 2
+#define ARGUMENT 1
 #define ID 0
 #define NAME 1
 #define GRADE 2
@@ -43,13 +47,9 @@ const int MIN_GRADE_LENGTH = 1;
  */
 typedef struct Student
 {
-
-//    unsigned long id;
     char id[11], name[41], country[41], city[41];
     unsigned int age, grade;
-//    unsigned long *p_id;
     unsigned int index;
-    // todo maybe more pointers!!!
 } Student;
 
 Student studentsArr[MAX_NUM_OF_STUDENTS];
@@ -72,20 +72,20 @@ int integerValidation(int n, char str[])
     }
     int i, value;
     int arrayLength = strlen(str);
-//    printf("%d\n", arrayLength);
+
     for ( i = 0; i < arrayLength; i++)
     {
-//        printf("%c\n", str[i]);
         if(!isdigit(str[i]))
         {
-            printf("ERROR: The grade or age should include only digits\n");
+            printf("ERROR: The grade or age should include only integer's digits\n");
             printf("in line %d\n", lineCounter);
             return -1;
         }
     }
 //    value = atoi(str);
     char *p;
-    value = (int) strtol(str,&p,10);
+    value = (int) strtol(str, &p, 10);
+
     if(n == ID)
     {
         if(str[0] == '0' || arrayLength != ID_LENGTH)
@@ -97,8 +97,6 @@ int integerValidation(int n, char str[])
     }
     else if (n == GRADE)
     {
-//        printf("%d\n", (MAX_GRADE-value));
-//        int k = (MAX_GRADE-value);
         if((arrayLength > MIN_GRADE_LENGTH && str[0] == '0') || (int)(MAX_GRADE-value) < 0)
         {
             printf("ERROR: Grade should be an integer from 0 to 100\n");
@@ -106,7 +104,7 @@ int integerValidation(int n, char str[])
             return -1;
         }
     }
-    else if (n == AGE)
+    else /*if (n == AGE)*/
     {
         if((arrayLength >= MIN_AGE_LENGTH && str[0] == '0') || (int)(value - MIN_AGE) < 0 || (int)(MAX_AGE - value) < 0)
         {
@@ -115,7 +113,6 @@ int integerValidation(int n, char str[])
             return -1;
         }
     }
-
     return 0;
 }
 
@@ -129,6 +126,7 @@ int stringValidation(int n, char str[])
 {
     unsigned int i;
     unsigned int arrayLength = strlen(str);
+
     for ( i = 0; i < arrayLength; i++)
     {
         if(!(isalpha(str[i]) || str[i] == '-' || str[i] == ' '))
@@ -180,14 +178,12 @@ void bestStudentCheck(unsigned int grade, unsigned int age, char line[])
  */
 void preTaskDoing(char task[], char parsedLine[7][41], char inputLine[MAX_SIZE_OF_LINE])
 {
-    //    studentCounter++;
+
 //    unsigned int grade = atoi(parsedLine[GRADE]);
     char *p;
-    unsigned int grade = (int)strtol(parsedLine[GRADE], &p, 10);;
-//    printf("%d\n",grade);
+    unsigned int grade = (int) strtol(parsedLine[GRADE], &p, 10);
 //    int age = atoi(parsedLine[AGE]);
-    int age = (int) strtol(parsedLine[AGE],&p,10);
-//    printf("%d\n",age);
+    int age = (int) strtol(parsedLine[AGE], &p, 10);
 
     if (strcmp(task, BEST) == 0)
     {
@@ -195,11 +191,7 @@ void preTaskDoing(char task[], char parsedLine[7][41], char inputLine[MAX_SIZE_O
     }
     else
     {
-        /* char k[10];
-    strcpy(k, separatedLine[ID]);*/
         Student currentStudent;
-        /*= {separatedLine[ID], separatedLine[NAME], separatedLine[GRADE],
-                    separatedLine[AGE], grade, age}*/
         strcpy(currentStudent.id, parsedLine[ID]);
         strcpy(currentStudent.name, parsedLine[NAME]);
         currentStudent.grade = grade;
@@ -207,9 +199,6 @@ void preTaskDoing(char task[], char parsedLine[7][41], char inputLine[MAX_SIZE_O
         strcpy(currentStudent.country, parsedLine[COUNTRY]);
         strcpy(currentStudent.city, parsedLine[CITY]);
         currentStudent.index = studentCounter;
-
-//        printf("%s  %s  %d  %d  %s  %s  %d\n", currentStudent.id,currentStudent.name,currentStudent.grade,
-//                currentStudent.age,currentStudent.country, currentStudent.city, currentStudent.index);
 
         studentsArr[studentCounter] = currentStudent;
     }
@@ -223,39 +212,22 @@ void preTaskDoing(char task[], char parsedLine[7][41], char inputLine[MAX_SIZE_O
  */
 int parsing(char inputLine[], char task[])
 {
-
     char separatedLine[7][41];
-//    gets(inputLine);
-//    printf(inputLine);
-
-    /*char * tok = strtok(inputLine, "\t");
-    while (tok != NULL) {
-        printf("%s\n", tok);
-        if()
-        tok = strtok(NULL, "\t");
-    }*/
     lineCounter++;
     unsigned int valueCounter = 0;
     unsigned int charIndex = 0;
     unsigned long i;
     int tabCounter = 0;
-    /*printf("%lu\n",strlen(inputLine));
-    inputLine[6] = 'g';
-    printf("%c",inputLine[6]);*/
 
     for(i = 0; i < strlen(inputLine); i++)
     {
         if (inputLine[i] == '\0' )
         {
             separatedLine[i][0] = '\0';
-            break;       //todo not sure about it
+            break;
         }
         else if (inputLine[i] == '\t' )
         {
-            /*if( i==0 )
-            {
-                tabCounter++;
-            }*/
             separatedLine[valueCounter][charIndex] = '\0';
             tabCounter++;
             valueCounter++;
@@ -297,16 +269,7 @@ int parsing(char inputLine[], char task[])
                 return -1;
         }
     }
-
     preTaskDoing(task, separatedLine, inputLine);
-
-    /* printf("\n Strings or words after split by space are :\n");
-     for(i=0; i < valueCounter; i++)
-     {printf(" %s\n",separatedLine[i]);}
-     printf("%d\n", valueCounter);
-     printf("%d", tabCounter);
-     return 0;*/
-
     return 0;
 }
 
@@ -383,14 +346,13 @@ void quickSort(int start, int finish)
         pivIndex = start;
         i = start;
         j = finish;
-
         while (i < j)
         {
-            while ( strcmp(studentsArr[i].name, studentsArr[pivIndex].name) <= 0 && i < finish) /*studentsArr[i]<=studentsArr[pivot]*/
+            while ( strcmp(studentsArr[i].name, studentsArr[pivIndex].name) <= 0 && i < finish)
             {
                 i++;
             }
-            while (strcmp(studentsArr[j].name, studentsArr[pivIndex].name) > 0)  /*studentsArr[j]>studentsArr[pivIndex]*/
+            while (strcmp(studentsArr[j].name, studentsArr[pivIndex].name) > 0)
             {
                 j--;
             }
@@ -401,27 +363,11 @@ void quickSort(int start, int finish)
                 studentsArr[j] = tempStudent;
             }
         }
-
         tempStudent = studentsArr[pivIndex];
         studentsArr[pivIndex] = studentsArr[j];
         studentsArr[j] = tempStudent;
         quickSort(start, j - 1);
         quickSort(j + 1, finish);
-    }
-}
-
-void deleteEnding(/*char str[]*/)
-{
-    char *ending;
-    ending = strchr(bestStudent,'\r');
-    if(ending)
-    {
-        ending[0] = 0;
-    }
-    ending = strchr(bestStudent,'\n');
-    if (ending)
-    {
-        ending[0] = 0;
     }
 }
 
@@ -434,8 +380,8 @@ void deleteEnding(/*char str[]*/)
  */
 int main(int argc, char *argv[] )
 {
-    if (argc == NUM_OF_ARGUMENT && (strcmp(argv[1], BEST) == 0 || strcmp(argv[1], QUICK) == 0
-                || strcmp(argv[1], MERGE) == 0))
+    if (argc == NUM_OF_ARGUMENT && (strcmp(argv[ARGUMENT], BEST) == 0 || strcmp(argv[ARGUMENT], QUICK) == 0 ||
+        strcmp(argv[ARGUMENT], MERGE) == 0))
     {
         unsigned int toContinue = 0;
         while (toContinue == 0)
@@ -443,20 +389,17 @@ int main(int argc, char *argv[] )
             char inputLine[MAX_SIZE_OF_LINE];
             printf("Enter student info. To exit press q, then enter\n");
             fgets(inputLine, sizeof inputLine, stdin);
-//            printf("%lu\n", strlen(inputLine));
-//            printf("%c\n",inputLine[6]);
-//            if (inputLine[0] == EXIT && inputLine[1] == '\n')
             if (strcmp(inputLine, "q\n") == 0 || strcmp(inputLine, "q\r\n") == 0)
             {
                 toContinue = 1;
                 Student student;
-                // two next lines help us to determinate on what size of array we should do
-                // merge or quick sort;
+                // two next lines help us to determinate on what size of array we should do with
+                // a merge or quick sort;
                 student.index = OVER_MAX_NUM_OF_STUDENTS;
                 studentsArr[studentCounter] = student;
                 continue;
             }
-            if (parsing(inputLine, argv[1]) == 0)
+            if (parsing(inputLine, argv[ARGUMENT]) == 0)
             {
                 studentCounter++;
             }
@@ -465,18 +408,27 @@ int main(int argc, char *argv[] )
         {
             return 0;
         }
-        if (strcmp(argv[1], BEST) == 0)
+        if (strcmp(argv[ARGUMENT], BEST) == 0)
         {
-            deleteEnding(/*bestStudent*/);
-            printf("best student info is: %s\n", bestStudent);
+            char *lineEnding;
+            lineEnding = strchr(bestStudent, '\r');
+            if(lineEnding)
+            {
+                lineEnding[0] = 0;
+            }
+            lineEnding = strchr(bestStudent, '\n');
+            if (lineEnding)
+            {
+                printf("best student info is: %s", bestStudent);
+            }
+            else
+            {
+                printf("best student info is: %s\n", bestStudent);
+            }
             return 0;
         }
-        else /*if (strcmp(argv, MERGE) == 0)*/
+        else    //if (strcmp(argv, MERGE) == 0)
         {
-            /*printf("%lu\n", ARR_SIZE(studentsArr));
-            printf("%d\n", studentsArr[0].index);
-            printf("%d\n", studentsArr[1].index);*/
-//            printf("%lu\n", ARR_SIZE(mergeArr));
             unsigned int i;
             for (i = 0; i < ARR_SIZE(studentsArr); i++)
             {
@@ -489,9 +441,9 @@ int main(int argc, char *argv[] )
             if (i > 0)
             {
                 i--;
-                Student mergeArr[MAX_NUM_OF_STUDENTS];
                 if (strcmp(argv[1], MERGE) == 0)
                 {
+                    Student mergeArr[MAX_NUM_OF_STUDENTS];  //helping array for merge sort
                     mergeSort(0, i, mergeArr);
                 }
                 else
@@ -502,7 +454,7 @@ int main(int argc, char *argv[] )
                 {
                     printf("%s\t%s\t%d\t%d\t%s\t%s\t\n", studentsArr[j].id, studentsArr[j].name,
                            studentsArr[j].grade, studentsArr[j].age, studentsArr[j].country,
-                           studentsArr[j].city); /*, studentsArr[j].index*/
+                           studentsArr[j].city);
                 }
             }
                 // if i=0 and it's mean that we have only one student to do with this task
@@ -514,5 +466,10 @@ int main(int argc, char *argv[] )
             }
             return 0;
         }
+    }
+    else
+    {
+        printf("USAGE: the program should receive only one argument -- 'best', 'merge' or 'quick'");
+        return 1;
     }
 }
