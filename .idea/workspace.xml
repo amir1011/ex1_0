@@ -11,7 +11,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9bbbf36-4770-4015-b818-5a1a707c8262" name="Default Changelist" comment="" />
+    <list default="true" id="d9bbbf36-4770-4015-b818-5a1a707c8262" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manageStudents.c" beforeDir="false" afterPath="$PROJECT_DIR$/manageStudents.c" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +106,7 @@
       <workItem from="1573584282166" duration="135000" />
       <workItem from="1573584661646" duration="42000" />
       <workItem from="1573584888346" duration="631000" />
+      <workItem from="1573596430999" duration="2405000" />
     </task>
     <task id="LOCAL-00001" summary="k">
       <created>1573420406607</created>
@@ -141,16 +146,5 @@
     <MESSAGE value="k" />
     <MESSAGE value="kkl" />
     <option name="LAST_COMMIT_MESSAGE" value="kkl" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/manageStudents.c</url>
-          <line>455</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

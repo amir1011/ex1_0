@@ -410,6 +410,20 @@ void quickSort(int start, int finish)
     }
 }
 
+void deleteEnding(/*char str[]*/)
+{
+    char *ending;
+    ending = strchr(bestStudent,'\r');
+    if(ending)
+    {
+        ending[0] = 0;
+    }
+    ending = strchr(bestStudent,'\n');
+    if (ending)
+    {
+        ending[0] = 0;
+    }
+}
 
 /**
  * @brief the main method of the program - first of all checks if the task order from the user were legal,
@@ -453,7 +467,8 @@ int main(int argc, char *argv[] )
         }
         if (strcmp(argv[1], BEST) == 0)
         {
-            printf("best student info is: %s", bestStudent);
+            deleteEnding(/*bestStudent*/);
+            printf("best student info is: %s\n", bestStudent);
             return 0;
         }
         else /*if (strcmp(argv, MERGE) == 0)*/
